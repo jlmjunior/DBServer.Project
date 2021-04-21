@@ -2,8 +2,5 @@
 
 namespace DBServer.Project.Data
 {
-    public interface IRestaurantData
-    {
-        public IEnumerable<RestaurantModel> GetRestaurants();
-    }
+    public interface IRestaurantData : IGenericData<RestaurantModel> { }
 }

@@ -4,9 +4,14 @@ namespace DBServer.Project.Data
 {
     public class RestaurantData : IRestaurantData
     {
-        public IEnumerable<RestaurantModel> GetRestaurants()
+        public bool Exists(int id)
         {
-            return new[]
+            throw new System.NotImplementedException();
+        }
+
+        public List<RestaurantModel> GetAll()
+        {
+            return new List<RestaurantModel>
             {
                 new RestaurantModel()
                 {
@@ -37,6 +42,11 @@ namespace DBServer.Project.Data
                     IsAvailable = true
                 }
             };
+        }
+
+        public RestaurantModel GetById(int id)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

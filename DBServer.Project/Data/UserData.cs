@@ -6,9 +6,9 @@ namespace DBServer.Project.Data
 {
     public class UserData : IUserData
     {
-        public IEnumerable<UserModel> GetUsers()
+        public List<UserModel> GetAll()
         {
-            return new[]
+            return new List<UserModel>
             {
                 new UserModel()
                 {
@@ -28,11 +28,14 @@ namespace DBServer.Project.Data
             };
         }
 
-        public UserModel GetUserByName(string userName)
+        public UserModel GetById(int id)
         {
-            return GetUsers()
-                .ToList()
-                .Find(user => user.UserName == userName);
+            return GetAll().Find(user => user.Id == id);
+        }
+
+        public bool Exists(int id)
+        {
+            return GetAll().Any(user => user.Id.Equals(id));
         }
     }
 }

@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using DBServer.Project.Models;
 
 namespace DBServer.Project.Business
 {
     public interface IVotationBusiness
     {
-        public bool AvailableThisWeek();
+        public ReturnModel SubmitVote(VoteModel vote);
     }
 }
