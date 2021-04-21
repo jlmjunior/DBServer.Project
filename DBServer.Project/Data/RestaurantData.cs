@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace DBServer.Project.Data
 {
-    public class RestaurantData
+    public class RestaurantData : IRestaurantData
     {
         public IEnumerable<RestaurantModel> GetRestaurants()
         {
