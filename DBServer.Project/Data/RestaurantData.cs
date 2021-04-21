@@ -1,14 +1,10 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace DBServer.Project.Data
 {
     public class RestaurantData : IRestaurantData
     {
-        public bool Exists(int id)
-        {
-            throw new System.NotImplementedException();
-        }
-
         public List<RestaurantModel> GetAll()
         {
             return new List<RestaurantModel>
@@ -46,7 +42,12 @@ namespace DBServer.Project.Data
 
         public RestaurantModel GetById(int id)
         {
-            throw new System.NotImplementedException();
+            return GetAll().Find(restaurant => restaurant.Id == id);
+        }
+
+        public bool Exists(int id)
+        {
+            return GetAll().Any(restaurant => restaurant.Id.Equals(id));
         }
     }
 }

@@ -33,7 +33,7 @@ namespace DBServer.Project
 
             services.AddScoped<IRestaurantData, RestaurantData>();
             services.AddScoped<IUserData, UserData>();
-            services.AddScoped<IVotationData, VotationData>();
+            services.AddSingleton<IVotationData, VotationData>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -20,12 +20,12 @@ namespace DBServer.Project.Controllers
             _votationBusiness = votationBusiness;
         }
 
-        [HttpPost("SubmitVote")]
+        [HttpPost("submitvote")]
         public IActionResult SubmitVote([FromBody] VoteModel vote)
         {
             if (vote == null) return BadRequest();
 
-            vote.DateVote = DateTime.Now;
+            //vote.DateVote = DateTime.Today;
 
             ReturnModel result = _votationBusiness.SubmitVote(vote);
 

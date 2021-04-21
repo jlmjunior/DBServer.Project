@@ -6,6 +6,6 @@ namespace DBServer.Project.Models
     {
         public int IdUser { get; set; }
         public int IdRestaurant { get; set; }
-        public DateTime DateVote { get; set; } = DateTime.Now;
+        public DateTime DateVote { get; set; }
     }
 }
