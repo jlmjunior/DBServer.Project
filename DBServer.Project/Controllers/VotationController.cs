@@ -11,5 +11,10 @@ namespace DBServer.Project.Controllers
     [ApiController]
     public class VotationController : ControllerBase
     {
+        [HttpPost]
+        public ActionResult SubmitVote()
+        {
+            return BadRequest();
+        }
     }
 }
