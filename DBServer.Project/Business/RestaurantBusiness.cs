@@ -9,19 +9,19 @@ namespace DBServer.Project.Business
     public class RestaurantBusiness : IRestaurantBusiness
     {
         private readonly IRestaurantData _restaurantData;
-        private readonly IEstoriasBusiness _estoriasBusiness;
+        private readonly IStoryBusiness _storyBusiness;
 
-        public RestaurantBusiness(IRestaurantData restaurantData, IEstoriasBusiness estoriasBusiness)
+        public RestaurantBusiness(IRestaurantData restaurantData, IStoryBusiness storyBusiness)
         {
             _restaurantData = restaurantData;
-            _estoriasBusiness = estoriasBusiness;
+            _storyBusiness = storyBusiness;
         }
 
         public List<RestaurantModel> GetRestaurants(DateTime date)
         {
             var restaurants = _restaurantData.GetAll();
 
-            restaurants.ForEach(x => x.IsAvailable = _estoriasBusiness.CheckRestaurant(x.Id, date));
+            restaurants.ForEach(x => x.IsAvailable = _storyBusiness.CheckRestaurant(x.Id, date));
 
             return restaurants;
         }

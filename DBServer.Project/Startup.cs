@@ -37,7 +37,7 @@ namespace DBServer.Project
             services.AddControllers();
 
             services.AddScoped<IVotationBusiness, VotationBusiness>();
-            services.AddScoped<IEstoriasBusiness, EstoriasBusiness>();
+            services.AddScoped<IStoryBusiness, StoryBusiness>();
             services.AddScoped<IRestaurantBusiness, RestaurantBusiness>();
 
             services.AddScoped<IRestaurantData, RestaurantData>();

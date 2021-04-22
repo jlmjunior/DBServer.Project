@@ -7,19 +7,19 @@ using System.Threading.Tasks;
 
 namespace DBServer.Project.Business
 {
-    public class EstoriasBusiness : IEstoriasBusiness
+    public class StoryBusiness : IStoryBusiness
     {
         private readonly IVotationData _votationData;
 
-        public EstoriasBusiness(IVotationData votationData)
+        public StoryBusiness(IVotationData votationData)
         {
             _votationData = votationData;
         }
 
         public bool CheckUser(int idUser, DateTime dateVote)
         {
-            List<VoteModel> teste = _votationData.GetVotesByDate(dateVote);
-            bool hasAlreadyVoted = teste.Any(row => row.IdUser.Equals(idUser));
+            List<VoteModel> votes = _votationData.GetVotesByDate(dateVote);
+            bool hasAlreadyVoted = votes.Any(row => row.IdUser.Equals(idUser));
 
             if (hasAlreadyVoted) return false;
 

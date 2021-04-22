@@ -12,14 +12,14 @@ namespace DBServer.Project.Business
         private readonly IUserData _userDate;
         private readonly IVotationData _votationData;
         private readonly IRestaurantData _restaurantData;
-        private readonly IEstoriasBusiness _estoriasBusiness;
+        private readonly IStoryBusiness _storyBusiness;
 
-        public VotationBusiness(IUserData userDate, IVotationData votationData, IRestaurantData restaurantData, IEstoriasBusiness estoriasBusiness)
+        public VotationBusiness(IUserData userDate, IVotationData votationData, IRestaurantData restaurantData, IStoryBusiness storyBusiness)
         {
             _userDate = userDate;
             _votationData = votationData;
             _restaurantData = restaurantData;
-            _estoriasBusiness = estoriasBusiness;
+            _storyBusiness = storyBusiness;
         }
 
         public List<ReturnVotesModel> GetVotes(DateTime date)
@@ -65,8 +65,8 @@ namespace DBServer.Project.Business
                 };
             }
 
-            bool userValid = _estoriasBusiness.CheckUser(vote.IdUser, vote.DateVote);
-            bool restaurantValid = _estoriasBusiness.CheckRestaurant(vote.IdRestaurant, vote.DateVote);
+            bool userValid = _storyBusiness.CheckUser(vote.IdUser, vote.DateVote);
+            bool restaurantValid = _storyBusiness.CheckRestaurant(vote.IdRestaurant, vote.DateVote);
 
             if (userValid && restaurantValid)
             {
