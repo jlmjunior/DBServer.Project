@@ -9,15 +9,11 @@ namespace DBServer.Project.Business
 {
     public class EstoriasBusiness : IEstoriasBusiness
     {
-        private readonly IUserData _userDate;
         private readonly IVotationData _votationData;
-        private readonly IRestaurantData _restaurantData;
 
-        public EstoriasBusiness(IUserData userDate, IVotationData votationData, IRestaurantData restaurantData)
+        public EstoriasBusiness(IVotationData votationData)
         {
-            _userDate = userDate;
             _votationData = votationData;
-            _restaurantData = restaurantData;
         }
 
         public bool CheckUser(int idUser, DateTime dateVote)
@@ -32,15 +28,13 @@ namespace DBServer.Project.Business
 
         public bool CheckRestaurant(int idRestaurant, DateTime dateVote)
         {
-            if (!_restaurantData.Exists(idRestaurant)) return false;
-
             List<int> idWinningRestaurants = new List<int>();
 
-            var startDate = dateVote.Date.AddDays((int)DayOfWeek.Sunday - (int)dateVote.DayOfWeek);
-            var endDate = startDate.AddDays(6);
+            var startWeek = dateVote.Date.AddDays((int)DayOfWeek.Sunday - (int)dateVote.DayOfWeek);
+            var endWeek = startWeek.AddDays(6);
 
             var votesOfWeek = _votationData.GetVotes()
-                .Where(x => x.DateVote.Date >= startDate && x.DateVote.Date <= endDate);
+                .Where(x => x.DateVote.Date >= startWeek && x.DateVote.Date <= endWeek);
 
             var datesVoted = votesOfWeek.GroupBy(x => x.DateVote);
 
