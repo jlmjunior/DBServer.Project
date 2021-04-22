@@ -23,6 +23,7 @@ namespace DBServer.Test
             _sut = new StoryBusiness(_mockVotationData.Object);
         }
 
+        #region USER_CHECK
         [TestMethod]
         public void UserCheck_WithoutVotes_ReturnTrue()
         {
@@ -87,7 +88,9 @@ namespace DBServer.Test
 
             Assert.IsTrue(result);
         }
+        #endregion
 
+        #region RESTAURANT_CHECK
         [TestMethod]
         public void RestaurantCheck_WithoutVotes_ReturnTrue()
         {
@@ -278,6 +281,7 @@ namespace DBServer.Test
 
             Assert.IsFalse(result);
         }
+        #endregion
 
     }
 }
