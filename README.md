@@ -1,5 +1,5 @@
 # DBServer Project
-<p>Web API com o propósito de vacilitar a escolha, de forma democrática, do local de almoço para um grupo de pessoas pré-definidas.</p>
+<p>Web API com o propósito de facilitar a escolha, de forma democrática, do local de almoço para um grupo de pessoas pré-definidas.</p>
 
 # Como Usar
 
