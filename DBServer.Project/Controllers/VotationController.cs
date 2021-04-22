@@ -20,7 +20,7 @@ namespace DBServer.Project.Controllers
             _votationBusiness = votationBusiness;
         }
 
-        [HttpGet]
+        [HttpGet("getvotes")]
         public IActionResult GetVotes(DateTime date)
         {
             DateTime confirmDate = DateTime.Now;
@@ -31,7 +31,7 @@ namespace DBServer.Project.Controllers
             {
                 var votes = _votationBusiness.GetVotes(confirmDate);
 
-                return Ok(votes);
+                return Ok(new { result = votes });
             }
             catch (Exception)
             {
@@ -46,14 +46,14 @@ namespace DBServer.Project.Controllers
 
             try
             {
-                ReturnModel result = _votationBusiness.SubmitVote(vote);
+                ReturnModel voteResult = _votationBusiness.SubmitVote(vote);
 
-                if (result.Success)
+                if (voteResult.Success)
                 {
-                    return Ok(result);
+                    return Ok(new { result = voteResult });
                 }
 
-                return BadRequest(result);
+                return BadRequest(new { result = voteResult });
             }
             catch (Exception)
             {

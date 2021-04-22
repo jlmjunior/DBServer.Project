@@ -19,21 +19,21 @@ namespace DBServer.Project.Data
                 new RestaurantModel()
                 {
                     Id = 2,
-                    Name = "Teste 2",
+                    Name = "Bom apetite",
                     ImageLink = null,
                     IsAvailable = true
                 },
                 new RestaurantModel()
                 {
                     Id = 3,
-                    Name = "Teste 3",
+                    Name = "Restaurante comida caseira",
                     ImageLink = null,
                     IsAvailable = true
                 },
                 new RestaurantModel()
                 {
                     Id = 4,
-                    Name = "Teste 4",
+                    Name = "King food",
                     ImageLink = null,
                     IsAvailable = true
                 }

@@ -19,7 +19,7 @@ namespace DBServer.Project.Controllers
             _restaurantBusiness = restaurantBusiness;
         }
 
-        [HttpGet]
+        [HttpGet("getrestaurants")]
         public IActionResult GetRestaurants(DateTime date)
         {
             DateTime confirmDate = DateTime.Now;
@@ -30,7 +30,7 @@ namespace DBServer.Project.Controllers
             {
                 var restaurants = _restaurantBusiness.GetRestaurants(confirmDate);
 
-                return Ok(restaurants);
+                return Ok(new { result = restaurants });
             }
             catch (Exception)
             {
