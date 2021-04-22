@@ -11,11 +11,34 @@ namespace DBServer.Project.Business
     {
         private readonly IUserData _userDate;
         private readonly IVotationData _votationData;
+        private readonly IRestaurantData _restaurantData;
 
-        public VotationBusiness(IUserData userDate, IVotationData votationData)
+        public VotationBusiness(IUserData userDate, IVotationData votationData, IRestaurantData restaurantData)
         {
             _userDate = userDate;
             _votationData = votationData;
+            _restaurantData = restaurantData;
+        }
+
+        public List<ReturnVotesModel> GetVotes(DateTime date)
+        {
+            List<ReturnVotesModel> resultVotes = new List<ReturnVotesModel>();
+
+            var restaurants = _votationData.GetVotesByDate(date)
+                .GroupBy(x => x.IdRestaurant);
+
+            var votesDate = _votationData.GetVotesByDate(date);
+
+            foreach (var restaurant in restaurants)
+            {
+                resultVotes.Add(new ReturnVotesModel()
+                {
+                    RestaurantName = _restaurantData.GetById(restaurant.Key).Name,
+                    Votes = votesDate.FindAll(x => x.IdRestaurant == restaurant.Key).Count()
+                }); ;
+            }
+
+            return resultVotes;
         }
 
         public ReturnModel SubmitVote(VoteModel vote)
@@ -66,7 +89,9 @@ namespace DBServer.Project.Business
 
         private bool CheckRestaurant(VoteModel vote)
         {
-            List<int> idRestaurantList = new List<int>();
+            if (!_restaurantData.Exists(vote.IdRestaurant)) return false;
+
+            List<int> idWinningRestaurants = new List<int>();
 
             var startDate = vote.DateVote.Date.AddDays((int)DayOfWeek.Sunday - (int)vote.DateVote.DayOfWeek);
             var endDate = startDate.AddDays(6);
@@ -74,23 +99,22 @@ namespace DBServer.Project.Business
             var votesOfWeek = _votationData.GetVotes()
                 .Where(x => x.DateVote.Date >= startDate && x.DateVote.Date <= endDate);
 
-            var dates = votesOfWeek.GroupBy(x => x.DateVote);
+            var datesVoted = votesOfWeek.GroupBy(x => x.DateVote);
 
-            foreach (var te in dates)
+            foreach (var date in datesVoted)
             {
-                if (vote.DateVote.Date == te.Key.Date) continue;
+                if (vote.DateVote.Date == date.Key.Date) continue;
 
-                var fasfas = votesOfWeek
-                    .Where(x => x.DateVote.Date == te.Key.Date)
+                var winningRestaurant = votesOfWeek
+                    .Where(x => x.DateVote.Date == date.Key.Date)
                     .GroupBy(x => x.IdRestaurant)
                     .OrderByDescending(x => x.Count())
                     .First();
 
-                idRestaurantList.Add(fasfas.Key);
+                idWinningRestaurants.Add(winningRestaurant.Key);
             }
 
-            return !idRestaurantList.Contains(vote.IdRestaurant);
+            return !idWinningRestaurants.Contains(vote.IdRestaurant);
         }
-
     }
 }

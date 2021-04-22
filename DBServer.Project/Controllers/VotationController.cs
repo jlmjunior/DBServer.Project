@@ -20,6 +20,21 @@ namespace DBServer.Project.Controllers
             _votationBusiness = votationBusiness;
         }
 
+        [HttpGet]
+        public IActionResult GetVotes(DateTime dateParameter)
+        {
+            DateTime date = DateTime.Now;
+
+            if (dateParameter != null)
+            {
+                date = dateParameter;
+            }
+
+            var votes = _votationBusiness.GetVotes(date);
+
+            return Ok(votes);
+        }
+
         [HttpPost("submitvote")]
         public IActionResult SubmitVote([FromBody] VoteModel vote)
         {
