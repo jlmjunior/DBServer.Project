@@ -85,3 +85,6 @@
 # Possíveis melhorias
 <p>* Adicionar autenticação de usuário;</p>
 <p>* Cadastro de novos restaurantes.</p>
+
+</br></br>
+<p><h3>Obrigado pela atenção! <g-emoji class="g-emoji" alias="hearts" fallback-src="https://github.githubassets.com/images/icons/emoji/unicode/2665.png">♥</g-emoji></h3></p>
