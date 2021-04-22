@@ -75,3 +75,7 @@
         }
     ]
 }</code></pre>
+
+# Possíveis melhorias
+<p>- Adicionar autenticação de usuário</p>
+<p>- Cadastro de novos restaurantes</p>
