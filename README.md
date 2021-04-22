@@ -76,6 +76,12 @@
     ]
 }</code></pre>
 
+# Regras do sistema
+
+<p>* Um usuário só pode votar em um restaurante por dia;</p>
+<p>* O mesmo restaurante não pode ser escolhido mais de uma vez durante a semana do voto;</p>
+<p>* Horário limite de votação até às 11:45:00.</p>
+
 # Possíveis melhorias
-<p>- Adicionar autenticação de usuário</p>
-<p>- Cadastro de novos restaurantes</p>
+<p>* Adicionar autenticação de usuário;</p>
+<p>* Cadastro de novos restaurantes.</p>
