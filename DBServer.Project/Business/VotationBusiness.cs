@@ -49,19 +49,20 @@ namespace DBServer.Project.Business
 
         public ReturnModel SubmitVote(VoteModel vote)
         {
-            int hourLimit = Convert.ToInt32(_configuration["LimitTime:Hour"]);
-            int minuteLimit = Convert.ToInt32(_configuration["LimitTime:Minute"]);
+            bool activeLimitTimeVote = Convert.ToBoolean(_configuration["LimitTime:Active"]);
 
-            DateTime limitTime = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 
-                DateTime.Now.Day, hourLimit, minuteLimit, 0);
-
-            if (vote.DateVote.TimeOfDay > limitTime.TimeOfDay)
+            if (activeLimitTimeVote)
             {
-                return new ReturnModel()
+                bool timesUp = LimitTimeVote(vote);
+
+                if (timesUp)
                 {
-                    Success = false,
-                    Message = "Fora do horário de votação"
-                };
+                    return new ReturnModel()
+                    {
+                        Success = false,
+                        Message = "Fora do horário de votação"
+                    };
+                }
             }
 
             if (!_userDate.Exists(vote.IdUser) || !_restaurantData.Exists(vote.IdRestaurant))
@@ -69,7 +70,7 @@ namespace DBServer.Project.Business
                 return new ReturnModel()
                 {
                     Success = false,
-                    Message = "Erro"
+                    Message = "Usuário ou restaurante não encontrado"
                 };
             }
 
@@ -92,6 +93,22 @@ namespace DBServer.Project.Business
                 Success = false,
                 Message = userValid ? "Restaurante já selecionado está semana" : "Você já votou"
             };
+        }
+
+        private bool LimitTimeVote(VoteModel vote)
+        {
+            int hourLimit = Convert.ToInt32(_configuration["LimitTime:Hour"]);
+            int minuteLimit = Convert.ToInt32(_configuration["LimitTime:Minute"]);
+
+            DateTime limitTime = new DateTime(DateTime.Now.Year, DateTime.Now.Month,
+                DateTime.Now.Day, hourLimit, minuteLimit, 0);
+
+            if (vote.DateVote.TimeOfDay > limitTime.TimeOfDay)
+            {
+                return true;
+            }
+
+            return false;
         }
     }
 }
