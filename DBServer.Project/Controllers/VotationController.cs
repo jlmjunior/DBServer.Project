@@ -48,12 +48,7 @@ namespace DBServer.Project.Controllers
             {
                 ReturnModel voteResult = _votationBusiness.SubmitVote(vote);
 
-                if (voteResult.Success)
-                {
-                    return Ok(new { result = voteResult });
-                }
-
-                return BadRequest(new { result = voteResult });
+                return Ok(new { result = voteResult });
             }
             catch (Exception)
             {
