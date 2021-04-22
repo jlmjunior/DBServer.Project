@@ -15,7 +15,7 @@ namespace DBServer.Project.Data
         
         public List<VoteModel> GetVotesByDate(DateTime date)
         {
-            return _votes.FindAll(vote => vote.DateVote.ToString("dd/MM/yyyy") == date.ToString("dd/MM/yyyy"));
+            return _votes.FindAll(vote => vote.DateVote.Date == date.Date);
         }
         
         public void SubmitVote(VoteModel vote)

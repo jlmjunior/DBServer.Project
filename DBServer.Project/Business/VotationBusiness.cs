@@ -30,10 +30,9 @@ namespace DBServer.Project.Business
         {
             List<ReturnVotesModel> resultVotes = new List<ReturnVotesModel>();
 
-            var restaurants = _votationData.GetVotesByDate(date)
-                .GroupBy(x => x.IdRestaurant);
-
             var votesDate = _votationData.GetVotesByDate(date);
+
+            var restaurants = votesDate.GroupBy(x => x.IdRestaurant);
 
             foreach (var restaurant in restaurants)
             {
