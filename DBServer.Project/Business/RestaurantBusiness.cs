@@ -8,9 +8,22 @@ namespace DBServer.Project.Business
 {
     public class RestaurantBusiness : IRestaurantBusiness
     {
-        public List<RestaurantModel> GetRestaurants()
+        private readonly IRestaurantData _restaurantData;
+        private readonly IEstoriasBusiness _estoriasBusiness;
+
+        public RestaurantBusiness(IRestaurantData restaurantData, IEstoriasBusiness estoriasBusiness)
         {
-            throw new NotImplementedException();
+            _restaurantData = restaurantData;
+            _estoriasBusiness = estoriasBusiness;
+        }
+
+        public List<RestaurantModel> GetRestaurants(DateTime date)
+        {
+            var restaurants = _restaurantData.GetAll();
+
+            restaurants.ForEach(x => x.IsAvailable = _estoriasBusiness.CheckRestaurant(x.Id, date));
+
+            return restaurants;
         }
     }
 }
