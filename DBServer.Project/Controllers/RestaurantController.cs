@@ -11,10 +11,15 @@ namespace DBServer.Project.Controllers
     [ApiController]
     public class RestaurantController : ControllerBase
     {
-        //[HttpGet]
-        //public IActionResult GetRestaurants()
-        //{
+        public RestaurantController()
+        {
 
-        //}
+        }
+
+        [HttpGet]
+        public IActionResult GetRestaurants()
+        {
+            return null;
+        }
     }
 }

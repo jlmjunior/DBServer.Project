@@ -21,18 +21,22 @@ namespace DBServer.Project.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetVotes(DateTime dateParameter)
+        public IActionResult GetVotes(DateTime date)
         {
-            DateTime date = DateTime.Now;
+            DateTime confirmDate = DateTime.Now;
 
-            if (dateParameter != null)
+            if (date != null) confirmDate = date;
+
+            try
             {
-                date = dateParameter;
+                var votes = _votationBusiness.GetVotes(confirmDate);
+
+                return Ok(votes);
             }
-
-            var votes = _votationBusiness.GetVotes(date);
-
-            return Ok(votes);
+            catch (Exception)
+            {
+                return StatusCode(500);
+            }
         }
 
         [HttpPost("submitvote")]
@@ -40,17 +44,20 @@ namespace DBServer.Project.Controllers
         {
             if (vote == null) return BadRequest();
 
-            //vote.DateVote = DateTime.Today;
-
-            ReturnModel result = _votationBusiness.SubmitVote(vote);
-
-            if (result.Success)
+            try
             {
-                return Ok(result);
-            }
-            else
-            {
+                ReturnModel result = _votationBusiness.SubmitVote(vote);
+
+                if (result.Success)
+                {
+                    return Ok(result);
+                }
+
                 return BadRequest(result);
+            }
+            catch (Exception)
+            {
+                return StatusCode(500);
             }
         }
     }
