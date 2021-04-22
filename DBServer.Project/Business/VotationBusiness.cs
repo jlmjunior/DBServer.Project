@@ -1,5 +1,6 @@
 ﻿using DBServer.Project.Data;
 using DBServer.Project.Models;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,13 +14,16 @@ namespace DBServer.Project.Business
         private readonly IVotationData _votationData;
         private readonly IRestaurantData _restaurantData;
         private readonly IStoryBusiness _storyBusiness;
+        private readonly IConfiguration _configuration;
 
-        public VotationBusiness(IUserData userDate, IVotationData votationData, IRestaurantData restaurantData, IStoryBusiness storyBusiness)
+        public VotationBusiness(IUserData userDate, IVotationData votationData, IRestaurantData restaurantData, 
+            IStoryBusiness storyBusiness, IConfiguration configuration)
         {
             _userDate = userDate;
             _votationData = votationData;
             _restaurantData = restaurantData;
             _storyBusiness = storyBusiness;
+            _configuration = configuration;
         }
 
         public List<ReturnVotesModel> GetVotes(DateTime date)
@@ -45,7 +49,11 @@ namespace DBServer.Project.Business
 
         public ReturnModel SubmitVote(VoteModel vote)
         {
-            DateTime limitTime = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, 11, 45, 0);
+            int hourLimit = Convert.ToInt32(_configuration["LimitTime:Hour"]);
+            int minuteLimit = Convert.ToInt32(_configuration["LimitTime:Minute"]);
+
+            DateTime limitTime = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 
+                DateTime.Now.Day, hourLimit, minuteLimit, 0);
 
             if (vote.DateVote.TimeOfDay > limitTime.TimeOfDay)
             {

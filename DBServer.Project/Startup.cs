@@ -33,7 +33,9 @@ namespace DBServer.Project
                 .AllowAnyMethod()
                 .AllowAnyHeader();
             }));
-                
+
+            services.AddSingleton<IConfiguration>(Configuration);
+
             services.AddControllers();
 
             services.AddScoped<IVotationBusiness, VotationBusiness>();
